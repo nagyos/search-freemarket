@@ -1,0 +1,47 @@
+version: '3'
+volumes:
+  vendor:
+services:
+  app: 
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/myapp
+      # - ./go-app/:/myapp/go-app
+    # command: sh -c "yarn --force && yarn run serve"
+    ports:
+      - '8000:8080'
+      - '3000:3000'
+    environment:
+      - GOPATH=
+    tty: true
+
+
+
+  # app: &app
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   volumes:
+  #     - ./next-app/:/myapp/next-app
+  #   # command: sh -c "yarn --force && yarn run serve"
+  #   ports:
+  #     - '8000:8080'
+  #   tty: true
+
+  # api:
+  #   <<: *app
+  #   container_name: go_container
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   # command: go run go/api.go
+  #   # build: ./go-app/build
+  #   volumes:
+  #     - ./go-app/:/myapp/go-app
+  #   environment:
+  #     - GOPATH=
+  #   tty: true
+  #   ports:
+  #     - '3000:3000'
