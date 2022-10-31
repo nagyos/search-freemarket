@@ -1,0 +1,26 @@
+.navigation {
+  /* display: -webkit-flex; */
+  /* display:inline; */
+  /* flex-flow: column; */
+  display: flex;
+  flex-wrap: wrap;
+  margin:10px;
+  width: 100%;
+    position: fixed;
+	top: 0;
+}
+
+.form {
+    display:inline;
+    margin: 10px;
+
+}
+
+.input{
+    /* width: 100%; */
+    padding: 0.5em;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    /* margin: 0.5em 0; */
+}
