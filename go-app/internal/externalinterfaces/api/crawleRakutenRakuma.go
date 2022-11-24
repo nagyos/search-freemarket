@@ -2,18 +2,14 @@ package api
 
 import (
 	"fmt"
-	"encoding/json"
+
+	// "encoding/json"
 	"github.com/gocolly/colly"
 	"github.com/shoki-tagawa/search-freemarket/internal/entity"
 )
 
 // ハンドラーを定義
-// func crawleRakutenRakuma(url string) string {
-// 	url = formatRakutenRakumaUrl(url)
-func CrawleRakutenRakuma() string {
-
-	url := "https://fril.jp/s?query=%E3%82%AD%E3%83%BC%E3%83%9C%E3%83%BC%E3%83%89"
-
+func CrawleRakutenRakuma(url string) []entity.Item {
 	c := colly.NewCollector()
 	items := []entity.Item{}
 
@@ -24,15 +20,18 @@ func CrawleRakutenRakuma() string {
 		name, _ := s.Attr("title")
 		price := e.DOM.Find("p.item-box__item-price").Text()
 
-		image, _ := s.Find("img").Attr("src")
-		item := entity.Item {
-			Url: url,
-			Name: name,
-			Price: price,
-			Image: image,
+		image, _ := s.Find("meta").Attr("content")
+		// image, _ := s.Find("img").Attr("src")
+		if url != "" {
+			item := entity.Item {
+				Url: url,
+				Name: name,
+				Price: price,
+				Image: image,
+			}
+			// fmt.Println(item)
+			items = append(items, item)
 		}
-		// fmt.Println(item)
-		items = append(items, item)
 	})
 
 	c.OnRequest(func(r *colly.Request) {
@@ -44,7 +43,7 @@ func CrawleRakutenRakuma() string {
 	})
 
 	c.OnError(func(r *colly.Response, e error) {
-		fmt.Println("Got this error:", e)
+		fmt.Println("Got this error:(RakutenRakuma)", e)
 	})
 
 	c.OnScraped(func(r *colly.Response) {
@@ -53,24 +52,9 @@ func CrawleRakutenRakuma() string {
 
 	c.Visit(url)
 
-	json, _ := json.Marshal(items)
+	// json, _ := json.Marshal(items)
 	// fmt.Printf("%s",json)
 
-	return string(json)
-}
-
-func formatRakutenRakumaUrl(url string) (string, error) {
-	// rep := regexp.MustCompile(`^(050)([0-9]{4})([0-9]{4})$`)
-	// result := rep.FindAllStringSubmatch(forwardingNumber, -1)
-	// if len(result) == 0 {
-	// 	return "", fmt.Errorf("unknown format: %s", forwardingNumber)
-	// }
-
-	// if len(result[0]) != 4 {
-	// 	return "", fmt.Errorf("unknown format: %s", forwardingNumber)
-	// }
-
-	// return fmt.Sprintf("%s-%s-%s", result[0][1], result[0][2], result[0][3]), nil
-		return "",nil
-
+	// return json
+	return items
 }
