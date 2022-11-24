@@ -1,29 +1,34 @@
 package handler
+
 import (
 	// "fmt"
 	"encoding/json"
 	"net/http"
+	"strings"
+
 	"github.com/labstack/echo/v4"
 	"github.com/shoki-tagawa/search-freemarket/internal/externalinterfaces/api"
 )
 
 // ハンドラーを定義
 func CrawleItemImages(c echo.Context) error {
-    // return c.JSON(http.StatusOK, api.crawleYahooAuction())
-	//NOTE:設定別にどうするか．並び替え，キーワード，販売状況などをどう受け取る？
-	//TODO:urlは正しい名前？
-	//TODO: url別で分岐 case
+	url := c.Param("url")
 
-	itemImages := api.CrawlePayPayFleaMarketItemImages()
+	var itemImages []uint8
+	var images []string
+	if strings.Contains(url,"mercari") {
+		itemImages = api.CrawleMercariItemImages(url)
+	}else if strings.Contains(url,"paypayfleamarket") {
+		itemImages = api.CrawlePayPayFleaMarketItemImages(url)
+	}else if strings.Contains(url,"fril") {
+		itemImages =  api.CrawleRakutenRakumaItemImages(url)
+	}else if strings.Contains(url,"auctions.yahoo"){
+		itemImages = api.CrawleYahooAuctionItemImages(url)
+	}else { return c.JSON(http.StatusOK, images) }
 
-	// fmt.Println(pfmItems)
-    var items []entity.Item
-	if err := json.Unmarshal(pfmItems,&items); err != nil {
+	if err := json.Unmarshal(itemImages,&images); err != nil {
 		panic(err)
 	}
-	// fmt.Println(items)
 
-	// return c.JSON(http.StatusOK, [yaItems, mrItems, rtfItems, pfmItems])
-    return c.JSON(http.StatusOK, items)
-    // return c.JSON(http.StatusOK, {"yahooAuction": yaItems, "mercari": mrItems, "RakutenRakuma":rtfItems,"PayPayFleaMarket": pfmItems})
+    return c.JSON(http.StatusOK, images)
 }
