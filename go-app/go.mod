@@ -7,6 +7,7 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/labstack/echo/v4 v4.9.1
 	github.com/sclevine/agouti v3.0.0+incompatible
+	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 )
 
 require (
