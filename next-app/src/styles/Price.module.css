@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+}
+
+.price{
+    display: flex;
+    flex-flow: column;
+    width: 90px;
+}
+
+.input {
+    height: 100%;
+    font-size: 100%;
+    text-align: center;
+}
