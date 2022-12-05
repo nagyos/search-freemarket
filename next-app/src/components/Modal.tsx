@@ -1,45 +1,80 @@
-import { useState } from 'react'
+import { fetchCrawlingItemImages } from 'handler/fetchCrawlingItemImages'
+import { useLayout } from 'hooks/useLayout'
+import { createRef, FC, KeyboardEvent, RefObject, useRef, useState } from 'react'
 import itemstyles from './../styles/item.module.css'
 import styles from './../styles/Modal.module.css'
 
-// const Modal = props => {
-
 type Props = {
-  itemBaseUrl: string
+  itemUrl: string
 }
 
-const Modal: React.FC<Props> = props => {
+const Modal: FC<Props> = props => {
+  const modalRef = useRef<HTMLDivElement>(null)
+  const liRef = useRef<RefObject<HTMLLIElement>[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const { headerHeight, headerRef, itemContainerHeight } = useLayout()
 
   const toggleModal = () => {
     setIsOpen(!isOpen)
   }
 
-  const [image, setImage] = useState('')
+  const [mainImageIndex, setMainImageIndex] = useState(0)
+  const [chosenImages, setChosenImages] = useState<Array<string>>([])
 
-  const showItemImages = async (url: string) => {
-    const images: string[] = await fetchItemImages(url)
-    setImage(images[0])
+  const showItemImages = async () => {
+    const images: string[] = await fetchCrawlingItemImages(props.itemUrl)
+    console.log(images)
+    setMainImageIndex(0)
+    setChosenImages(images)
+    modalRef.current?.focus()
   }
 
-  const fetchItemImages = async (url: string): Promise<string[]> => {
-    const response = await fetch('http://localhost:8000/getImages')
-    const result = await response.json()
-    return result
+  const makeImagesList = () => {
+    const images = []
+    for (let i = 0; i < chosenImages.length; i++) {
+      liRef.current[i] = createRef<HTMLLIElement>()
+      images.push(
+        <li ref={liRef.current[i]}>
+          <img
+            src={chosenImages[i]}
+            className={i != mainImageIndex ? styles.li : styles.liSelected}
+            onClick={() => {
+              setMainImageIndex(i)
+            }}
+            key={i}
+          />
+        </li>
+      )
+    }
+
+    return <ul className={styles.ul}>{images}</ul>
   }
 
-  const changeShowImage = () => {
-    setImage('faf')
+  const keyDownHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+    const key = e.code
+    if (key === 'ArrowLeft' || key === 'ArrowRight') {
+      var selectedImageIndex = mainImageIndex
+      if (key === 'ArrowLeft') {
+        if (selectedImageIndex > 0) {
+          selectedImageIndex--
+        }
+      } else if (key === 'ArrowRight') {
+        if (selectedImageIndex < chosenImages.length - 1) {
+          selectedImageIndex++
+        }
+      }
+      setMainImageIndex(selectedImageIndex)
+      liRef.current[selectedImageIndex].current?.scrollIntoView()
+    }
   }
 
   return (
     <>
       <button
-        type="button"
         className={itemstyles.showImagesButton}
         onClick={() => {
-          showItemImages(props.itemBaseUrl)
           toggleModal()
+          showItemImages()
         }}
       >
         <svg
@@ -51,13 +86,17 @@ const Modal: React.FC<Props> = props => {
         </svg>
       </button>
       {isOpen && (
-        <div className={styles.modal}>
+        <div
+          className={styles.modal}
+          aria-modal="true"
+          tabIndex={-1}
+          onKeyDown={keyDownHandler}
+          ref={modalRef}
+        >
           <div className={styles.overlay} onClick={toggleModal}></div>
           <div className={styles.modal_content}>
-            <img src={props.itemBaseUrl} />
-            <ul>
-              <li></li>
-            </ul>
+            <img src={chosenImages[mainImageIndex]} className={styles.img} />
+            {makeImagesList()}
             <button className={styles.close_modal} onClick={toggleModal}>
               X
             </button>
