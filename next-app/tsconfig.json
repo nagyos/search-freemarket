@@ -13,8 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./src"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/TabList.tsx", "src/hooks/GetWindowSize.tsx", "src/components/Modal.tsx", "src/components/SearchInput.tsx", "src/components/index.js"],
   "exclude": ["node_modules"]
 }

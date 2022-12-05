@@ -15,6 +15,7 @@ services:
       - '3000:3000'
     environment:
       - GOPATH=
+      # - GOROOT=/myapp/go-app
       # - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
     tty: true

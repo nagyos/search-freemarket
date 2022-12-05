@@ -1,0 +1,131 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.item {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    max-height: 250px;
+
+    flex-direction: column;
+    margin: 10px;
+    flex-basis: auto;
+}
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 250px;
+  margin-bottom: -250px;
+}
+
+.itemGrid {
+  /* display: -webkit-flex; */
+  /* display:inline; */
+  /* flex-flow: column; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 250px;
+  margin-bottom: -250px;
+}
+
+.showImagesIcon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: auto;
+    display: inline-flex;
+    -webkit-box-align: end;
+    align-items: flex-end;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    max-width: 100%;
+    background-color: rgba(256, 256, 256, 0.4);
+}
+
+.a {
+    /* position: relative; */
+    /* display: inline-flex; */
+    /* top: 0px; */
+    /* width: auto; */
+    /* max-width: 200px;
+    max-height: 250px; */
+    /* vertical-align: middle; */
+}
+
+.imgContainer {
+    position: relative;
+    top: 0px;
+    min-width: 200px;
+    min-height: 200px;
+    /* width: 100%;
+    height: auto; */
+    width: 200px;
+    height: 200px;
+    background-color:lightgray;
+}
+
+.img {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.1s;
+    transition-property: opacity;
+}
+
+
+.price {
+    position: absolute;
+    top: 160px;
+    left: 0px;
+    display: inline-flex;
+    -webkit-box-align: end;
+    align-items: flex-end;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 2px 8px 2px 4px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0px 20px 20px 0px;
+    color: white;
+}
+
+.name {
+    display: -webkit-box;
+    height: calc(39.2px);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.4em;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}

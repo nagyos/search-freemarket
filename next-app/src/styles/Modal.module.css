@@ -1,0 +1,80 @@
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 5;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.modal_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px;
+    z-index: 10;
+    text-align: center;
+}
+
+.close_modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+}
+
+.img {
+    width:60%;
+    height:auto;
+    border-radius: 5px;
+}
+
+.ul {
+    display: flex;
+    list-style: none;
+    justify-content: left;
+    overflow-x: scroll;
+    white-space: nowrap;
+    padding-left: 0;
+    /* margin: 10px; */
+    align-items: center;
+}
+
+.li {
+    max-width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    min-width: 100px;
+    object-fit: contain;
+    /* vertical-align: middle; */
+    border: 3px lightgray solid;
+    cursor: pointer;
+    /* padding:5px; */
+    margin: 5px;
+    /* flex-shrink: 0; */
+}
+
+.liSelected {
+    max-width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    min-width: 100px;
+    object-fit: contain;
+    /* vertical-align: middle; */
+    border: 3px orange solid;
+    cursor: pointer;
+    /* padding:5px; */
+    margin: 5px;
+    /* flex-shrink: 0; */
+}
