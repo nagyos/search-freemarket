@@ -1,28 +1,58 @@
-.itemList {
+.container {
     display:flex;
     justify-content: center;
 }
-.container {
+.itemList {
   display: grid;
   place-items: center;
   /* grid-gap: var(--grid-layout-gutter); */
-  grid-gap: 3vmin 3vmin;
+  grid-gap: 1vmin 1vmin;
   /* grid-auto-columns: minmax(80px,minmax(auto,200px)); */
   /* grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); */
   /* grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); */
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   justify-content: flex-start;
   align-content: flex-start;
-  max-width: 860px;
+  /* max-width: 860px; */
   /* max-height: 50%; */
-  height:1000px;
+  height:100%;
   overflow-y:scroll;
+  overflow-x: none;
+  margin:0 2px;
+  padding:3px;
+  border: solid 2px #6091d3;/*線*/
+  border-radius: 6px;/*角の丸み*/
   /* overflow: auto; */
 }
 
-@media (max-width: 420px){
-    .container {
+@media (max-width: 3800px){
+    .itemList {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+@media (max-width: 3200px){
+    .itemList {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+@media (max-width: 2600px){
+    .itemList {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 2000px){
+    .itemList {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 1500px){
+    .itemList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 850px){
+    .itemList {
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
@@ -70,7 +100,6 @@
     /* width: auto; */
     max-width: 200px;
     max-height: 250px;
-    margin-bottom: 3vmin;
     /* vertical-align: middle; */
 }
 
@@ -102,7 +131,6 @@
     transition-property: opacity;
 
 }
-
 
 .price {
     position: absolute;
