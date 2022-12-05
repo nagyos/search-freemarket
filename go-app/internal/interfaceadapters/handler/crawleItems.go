@@ -89,7 +89,7 @@ func CrawleItemsWithColly(c echo.Context) error {
     return c.JSON(http.StatusOK, allItems)
 }
 // ハンドラーを定義
-func CrawleItemsWithAgouch(c echo.Context) error {
+func CrawleItemsWithAgouti(c echo.Context) error {
 	sqp := searchQueryParam{
 		keyword: c.QueryParam("keyword"),
 		priceMin: c.QueryParam("price-min"),
@@ -99,7 +99,7 @@ func CrawleItemsWithAgouch(c echo.Context) error {
 		itemStatus: c.QueryParam("status"),
 	}
 
-	queryParam := adjustUrlWithQueryParamForAgouch(sqp)
+	queryParam := adjustUrlWithQueryParamForAgouti(sqp)
 
 	// 並列処理を開始
 	// ctx := context.Background()
@@ -137,7 +137,7 @@ func adjustUrlWithQueryParamForColly (sqp searchQueryParam) map[string]string {
 
 	return urls
 }
-func adjustUrlWithQueryParamForAgouch (sqp searchQueryParam) map[string]string {
+func adjustUrlWithQueryParamForAgouti (sqp searchQueryParam) map[string]string {
 	urls := map[string]string{}
 
 	urls[mercari] = adjustMercariQueryParam(sqp)
