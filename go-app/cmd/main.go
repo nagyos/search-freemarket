@@ -14,10 +14,10 @@ func main() {
 	e.Use(middleware.CORS())
 
  	// ルートを設定
-  	e.GET("/search-colly", handler.CrawleItemsWithColly)
-  	e.GET("/search-agouch", handler.CrawleItemsWithAgouch)
+  	e.GET("/v1/search-colly", handler.CrawleItemsWithColly)
+  	e.GET("/v1/search-aagouti", handler.CrawleItemsWithAgouti)
 
-	e.GET("/getItemImages/:url", handler.CrawleItemImages)
+	e.GET("/v1/getItemImages/:url", handler.CrawleItemImages)
 	// サーバーをポート番号1323で起動
 	e.Logger.Fatal(e.Start(":8080"))
 }
